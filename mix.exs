@@ -7,6 +7,8 @@ defmodule OAuth2.Mixfile do
   def project do
     maybe_cli =
       if Version.compare(System.version(), "1.14.5") == :gt do
+        []
+      else
         [
           preferred_cli_env: [
             coveralls: :test,
@@ -15,8 +17,6 @@ defmodule OAuth2.Mixfile do
             docs: :dev
           ]
         ]
-      else
-        []
       end
 
     [
