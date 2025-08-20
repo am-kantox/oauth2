@@ -223,7 +223,7 @@ defmodule OAuth2.Client do
   @spec put_serializer(t, binary, atom) :: t
   def put_serializer(%Client{serializers: serializers} = client, mime, module)
       when is_binary(mime) and is_atom(module) do
-    %Client{client | serializers: Map.put(serializers, mime, module)}
+    %{client | serializers: Map.put(serializers, mime, module)}
   end
 
   @doc """
@@ -238,7 +238,7 @@ defmodule OAuth2.Client do
   """
   @spec delete_serializer(t, binary) :: t
   def delete_serializer(%Client{serializers: serializers} = client, mime) do
-    %Client{client | serializers: Map.delete(serializers, mime)}
+    %{client | serializers: Map.delete(serializers, mime)}
   end
 
   @doc false

@@ -16,12 +16,6 @@ defmodule OAuth2.Mixfile do
       docs: docs(),
       elixirc_paths: elixirc_paths(Mix.env()),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [
-        coveralls: :test,
-        "coveralls.detail": :test,
-        "coveralls.html": :test,
-        docs: :dev
-      ],
       dialyzer: dialyzer()
     ]
   end
@@ -78,6 +72,17 @@ defmodule OAuth2.Mixfile do
         Changelog: "https://hexdocs.pm/oauth2/changelog.html",
         GitHub: @source_url
       }
+    ]
+  end
+
+  def cli do
+    [
+      preferred_envs: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.html": :test,
+        docs: :dev
+      ]
     ]
   end
 
