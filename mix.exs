@@ -5,6 +5,20 @@ defmodule OAuth2.Mixfile do
   @version "2.1.0"
 
   def project do
+    maybe_cli =
+      if Version.compare(System.version(), "1.14.5") == :gt do
+        [
+          preferred_cli_env: [
+            coveralls: :test,
+            "coveralls.detail": :test,
+            "coveralls.html": :test,
+            docs: :dev
+          ]
+        ]
+      else
+        []
+      end
+
     [
       app: :oauth2,
       name: "OAuth2",
@@ -17,7 +31,7 @@ defmodule OAuth2.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env()),
       test_coverage: [tool: ExCoveralls],
       dialyzer: dialyzer()
-    ]
+    ] ++ maybe_cli
   end
 
   def application do
@@ -75,15 +89,17 @@ defmodule OAuth2.Mixfile do
     ]
   end
 
-  def cli do
-    [
-      preferred_envs: [
-        coveralls: :test,
-        "coveralls.detail": :test,
-        "coveralls.html": :test,
-        docs: :dev
+  if Version.compare(System.version(), "1.14.5") == :gt do
+    def cli do
+      [
+        preferred_envs: [
+          coveralls: :test,
+          "coveralls.detail": :test,
+          "coveralls.html": :test,
+          docs: :dev
+        ]
       ]
-    ]
+    end
   end
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
